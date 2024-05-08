@@ -10,7 +10,7 @@ export default {
     <div class="card-container">
         
         <img :src="`https://image.tmdb.org/t/p/w342${cardObj.poster_path}`" alt="">
-        
+        <!-- {{ cardObj.poster_path }} -->
     </div>
 </template>
 

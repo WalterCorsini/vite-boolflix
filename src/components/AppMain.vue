@@ -1,9 +1,11 @@
 <script>
-import AppCard from "./AppCard.vue";
+import AppCardFilm from "./AppCardFilm.vue";
 import { store } from '../store';
+import AppCardSerie from "./AppCardSerie.vue";
 export default {
     components: {
-        AppCard,
+        AppCardFilm,
+        AppCardSerie,
     },
     data() {
         return {
@@ -15,16 +17,16 @@ export default {
 
 <template>
     <div class="container-film-serie">
-    <span>Film</span>
+    <span v-if="store.arrayFilm.length > 0">Film</span>
     <div class="container" v-show="this.store.arrayFilm.length !== 0">
         <div v-show ="curFilm.poster_path" class="card" v-for="curFilm in store.arrayFilm">
-            <AppCard :cardObj="curFilm" />
+            <AppCardFilm :cardObj="curFilm" />
         </div>
     </div>
-    <span>Series</span>
+    <span v-if="store.arrayFilm.length > 0">Series</span>
     <div class="container" v-show="this.store.arrayFilm.length !== 0">
         <div v-show ="curSerie.poster_path" class="card" v-for="curSerie in store.arraySerie">
-          <AppCard :cardObj="curSerie" />
+          <AppCardSerie :cardObj="curSerie" />
         </div>
     </div>
     </div>
