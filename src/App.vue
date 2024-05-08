@@ -42,8 +42,6 @@ export default {
 
 <AppHeader @searchFilm="SearchFilmSeries"/>
 <AppMain />
-{{ store.searchQuery }}
-
 </template>
 
 <style lang="scss">
