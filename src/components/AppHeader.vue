@@ -9,8 +9,8 @@
             <div class="search-container">
                 <label for="search">trova un film</label>
                 <div>
-                    <input id="search" type="text" placeholder="ricerca..">
-                    <button>cerca</button>
+                    <input v.model="store.searchQuery" id="search" type="text" placeholder="ricerca..">
+                    <button @click="$emit('searchFilm')">cerca</button>
                 </div>
             </div>
         </div>
@@ -22,6 +22,7 @@
 @use "../style/partials/mixin" as *;
 
 .header {
+    height: 17vh;
     background-color: $black;
     padding: 10px;
     

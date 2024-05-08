@@ -1,10 +1,18 @@
 <script>
-
+import { store } from '../store';
+export default{
+    data(){
+        return{
+            store,
+        }
+    }
+}
 </script>
 
 <template>
 <div>
-    Main
+    MAIN
+    {{ store.searchQuery }}
 </div>
 </template>
 
@@ -12,4 +20,8 @@
 @use "../style/partials/variable" as *;
 @use "../style/partials/mixin" as *;
 
+div{
+    background-color: $darkgrey;
+    min-height: 83vh;
+}
 </style>

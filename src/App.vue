@@ -12,15 +12,20 @@ export default {
         return{
             store,
         }
+    },
+    methods:{
+        SearchFilmSeries(){
+            alert("ti sento");
+        }
     }
 }
-
 </script>
 
 <template>
 
-<AppHeader />
+<AppHeader @searchFilm="SearchFilmSeries"/>
 <AppMain />
+{{ store.searchQuery }}
 
 </template>
 
