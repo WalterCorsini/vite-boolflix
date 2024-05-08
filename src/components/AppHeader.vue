@@ -1,5 +1,12 @@
 <script>
-
+import { store } from "../store"
+export default {
+    data() {
+        return {
+            store,
+        }
+    }
+}
 </script>
 
 <template>
@@ -9,7 +16,7 @@
             <div class="search-container">
                 <label for="search">trova un film</label>
                 <div>
-                    <input v.model="store.searchQuery" id="search" type="text" placeholder="ricerca..">
+                    <input v-model="store.searchQuery" id="search" type="text" placeholder="ricerca..">
                     <button @click="$emit('searchFilm')">cerca</button>
                 </div>
             </div>
@@ -25,19 +32,20 @@
     height: 17vh;
     background-color: $black;
     padding: 10px;
-    
+
     .container {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 80%;
         margin: 0 auto;
-        
+
         span {
             color: $red;
             font-weight: 800;
             font-size: 30px;
         }
+
         .search-container {
             display: flex;
             flex-direction: column;
