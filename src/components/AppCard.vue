@@ -102,6 +102,7 @@ export default {
     .front-card {
         height: 100%;
         width: 100%;
+        border-radius: 20px;
     }
 
     .back-card {
@@ -118,6 +119,8 @@ export default {
     .front-card img {
         width: 100%;
         height: 100%;
+        border-radius: 20px;
+
     }
 
     .overview-text{
