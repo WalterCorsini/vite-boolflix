@@ -5,6 +5,7 @@ export default {
     data() {
         return {
             number: 0,
+            flag: ["en","it","es","fr"]
         }
     },
     props: {
@@ -15,22 +16,17 @@ export default {
             return `https://image.tmdb.org/t/p/w342${this.cardObj.poster_path}`;
         },
         titleFilm() {
-            return `${this.cardObj.original_name}`;
+            if(this.cardObj.original_title){
+                return `${this.cardObj.original_title}`;
+            } else{
+                return `${this.cardObj.original_name}`;
+            }
         },
         title() {
-            return `${this.cardObj.name}`;
-        },
-        language() {
-            switch (this.cardObj.original_language) {
-                case "en":
-                    return "English"; break;
-                case "es":
-                    return "Espanol"; break;
-                case "fr":
-                    return "Francais"; break;
-                case "it":
-                    return "Italiano"; break;
-                default: return "Sconosciuta";
+            if(this.cardObj.original_title){
+                return `${this.cardObj.title}`;
+            } else{
+                return `${this.cardObj.name}`;
             }
         },
         valutation() {
@@ -39,6 +35,15 @@ export default {
             return this.number;
         },
     },
+    methods:{
+        getImage(name){
+            if(this.flag.includes(name)){
+                return new URL(`../assets/img/${name}.png`, import.meta.url).href;
+            } else {
+                return new URL(`../assets/img/int.png`, import.meta.url).href;
+            }
+        }
+    }
 }
 </script>
 
@@ -54,27 +59,18 @@ export default {
             <span>{{ title }}</span>
 
             <span class="text-red">Lingua:</span>
-            <span v-if="language">
-                <img v-if="language === 'Italiano'" src="../assets/img/italia.svg">
-                <img v-if="language === 'English'" src="../assets/img/inghilterra.png">
-                <img v-if="language === 'Espanol'" src="../assets/img/spagna.png">
-                <img v-if="language === 'Francais'" src="../assets/img/francia.png">
-                <img v-if="language === 'Sconosciuta'" src="../assets/img/interrogativo.png">
-            </span>
+            <!--  settare per tutte le bandiere -->
+            <img :src="getImage(cardObj.original_language)">
 
             <!-- star -->
             <span class="text-red" v-if="valutation !== 0">Voto:
-                <i v-if="valutation >= 1" class="fa-solid fa-star"></i>
-                <i v-if="valutation >= 2" class="fa-solid fa-star"></i>
-                <i v-if="valutation >= 3" class="fa-solid fa-star"></i>
-                <i v-if="valutation >= 4" class="fa-solid fa-star"></i>
-                <i v-if="valutation >= 5" class="fa-solid fa-star"></i>
+                <i v-for="i in valutation" class="fa-solid fa-star"></i>
             </span>
             <span v-else>
                 non classificato!
             </span>
             <!-- star -->
-        </div>
+    </div>
     </div>
 
 </template>
@@ -94,7 +90,7 @@ export default {
     }    
     .back-card {
         transform: rotateY(180deg);
-        background-color: $white;
+        background-color: lightblue;
         padding: 10px;
         font-size: 13px;
         opacity: 0;
@@ -121,9 +117,9 @@ export default {
             transition: 1s;
             span {
                 display: block;
-                img{
-                    width: 30px;
-                }
+            }
+            img{
+                width: 30px;
             }
         
             span:last-child {
