@@ -5,11 +5,12 @@ export default {
     data() {
         return {
             flag: ["en", "it", "es", "fr"],
-            flip: false,
+            popup: false,
         }
     },
     props: {
         cardObj: Object,
+        i: Number,
     },
     computed: {
         Image() {
@@ -31,7 +32,6 @@ export default {
         },
         valutation() {
             return Math.round(this.cardObj.vote_average / 2);
-  
         },
     },
     methods: {
@@ -47,15 +47,15 @@ export default {
 </script>
 
 <template>
-    <div @click.stop="flip = !flip" class="card-container">
+    <div @click="flip = !flip" class="card-container">
         <!-- front -->
-        <div :class="flip ? 'flip-front' : ''" class="front-card">
+        <div class="front-card">
             <img :src="`${Image}`" alt="">
         </div>
         <!-- /front -->
 
         <!-- back -->
-        <div :class="flip ? 'flip-back' : ''" class="back-card">
+        <div class="back-card">
             <span class="text-red">Titolo originale:</span>
             <span>{{ titleFilm }}</span>
             <span class="text-red">Titolo:</span>
@@ -84,13 +84,10 @@ export default {
                 </span>
             </div>
             <!-- /star -->
-
-            <!-- popup -->
-            <!-- <div v-if="isVisiblePopup" class="popup">
+            <button class="btn-cast" @click="popup = !popup">vedi cast</button>
+            <div class="overlay" v-if="popup">
                 ciao
-            </div> -->
-            <!-- /popup -->
-
+            </div>
         </div>
         <!-- /back -->
 
@@ -148,15 +145,15 @@ export default {
             right: 5px;
         }
 
-        .popup {
+        .overlay {
             width: 100%;
-            height: 100%;
-            background-color: $black;
+            height: 50%;
+            background-color: rgba($color: #000000, $alpha:0.7);
             color:  $white;
             padding: 10px;
             position: absolute;
             z-index: 9999;
-            top: 10%;
+            top: 15%;
             left: 0;
             border-radius: 20px;
         }
@@ -169,6 +166,12 @@ export default {
             display: inline-block;
             overflow-y: auto;
         }
+
+        .btn-cast{
+            position: absolute;
+            top: 5%;
+            right: 5%;
+        }
     }
 
     .front-card img {
@@ -178,27 +181,17 @@ export default {
 
     }
 
-    .overview-text {
-        overflow-y: hidden;
-    }
-
-
-        .flip-front {
+    &:hover{
+        .front-card {
             transform: rotateY(180deg);
             transition: 1s;
             opacity: 0;
         }
-        .flip-back {
+        .back-card {
             transform: rotateY(360deg);
             opacity: 1;
             transition: 1s;
         }
-
-    .hidden{
-        opacity: 0;
-    }
-    .visible{
-        opacity: 1;
     }
 }
 </style>

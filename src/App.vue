@@ -33,7 +33,8 @@ export default {
                 this.store.arrayFilm = resp.data.results;
                 console.log("film",this.store.arrayFilm);
             });
-        }
+        },
+
     }
 }
 </script>
@@ -41,7 +42,7 @@ export default {
 <template>
 
 <AppHeader @searchFilm="SearchFilmSeries"/>
-<AppMain />
+<AppMain/>
 </template>
 
 <style lang="scss">

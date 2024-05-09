@@ -17,14 +17,14 @@ export default {
     <div class="container-film-serie">
     <span v-if="store.arrayFilm.length > 0">Film</span>
     <div class="container" v-show="this.store.arrayFilm.length !== 0">
-        <div v-show ="curFilm.poster_path" class="card" v-for="curFilm in store.arrayFilm">
+        <div v-show ="curFilm.poster_path" class="card" v-for="curFilm,index in store.arrayFilm">
             <AppCard :cardObj="curFilm" />
         </div>
     </div>
     <span v-if="store.arrayFilm.length > 0">Series</span>
     <div class="container" v-show="this.store.arrayFilm.length !== 0">
         <div v-show ="curSerie.poster_path" class="card" v-for="curSerie in store.arraySerie">
-          <AppCard :cardObj="curSerie" :castObj="curSerie" />
+          <AppCard :cardObj="curSerie" />
         </div>
     </div>
     </div>
