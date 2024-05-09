@@ -45,12 +45,14 @@ export default {
         color: $white;
     }
     .container{
+
         display: flex;
         justify-content: flex-start;
         gap: 10px;
         flex-wrap: wrap;
         .card{
             width: calc(100% / 5 - 40px / 5);
+            border: 1px solid black;
         }
     }
 }

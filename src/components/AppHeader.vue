@@ -13,11 +13,12 @@ export default {
     <div class="header">
         <div class="container">
             <span>BOOLFLIX</span>
+            
             <div class="search-container">
                 <label for="search">trova un film</label>
                 <div>
                     <input v-model="store.searchQuery" id="search" type="text" placeholder="ricerca..">
-                    <button @click="$emit('searchFilm')">cerca</button>
+                    <button :disabled='store.searchQuery === ""' @click="$emit('searchFilm')">cerca</button>
                 </div>
             </div>
         </div>

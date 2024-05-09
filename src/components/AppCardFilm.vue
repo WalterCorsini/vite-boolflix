@@ -2,36 +2,39 @@
 import { computed } from 'vue';
 
 export default {
-    data(){
-        return{
+    data() {
+        return {
             number: 0,
         }
     },
-    props:{
+    props: {
         cardObj: Object,
     },
-    computed:{
+    computed: {
         Image() {
             return `https://image.tmdb.org/t/p/w342${this.cardObj.poster_path}`;
         },
-        titleFilm(){
+        titleFilm() {
             return `${this.cardObj.original_title}`;
         },
-
+        title() {
+            return `${this.cardObj.title}`;
+        },
         language() {
-            switch(this.cardObj.original_language){
+            switch (this.cardObj.original_language) {
                 case "en":
-                    return "english";break;
+                    return "English"; break;
                 case "es":
-                    return "espanol";break;
+                    return "Espanol"; break;
                 case "fr":
-                    return "francais";break;
+                    return "Francais"; break;
                 case "it":
-                    return "Italiano";break;
+                    return "Italiano"; break;
+                default: return "Sconosciuta";
             }
         },
-        valutation(){
-            this.number = Math.round(Math.round(this.cardObj.vote_average)/2);
+        valutation() {
+            this.number = Math.round(Math.round(this.cardObj.vote_average) / 2);
             console.log(this.number);
             return this.number;
         },
@@ -45,83 +48,89 @@ export default {
             <img :src="`${Image}`" alt="">
         </div>
         <div class="back-card">
-            <span>Titolo: {{ titleFilm }}</span>
-            <span>Lingua: {{ language }}</span>
-            <span v-if="`${valutation}` == 1">Voto:
-                <i class="fa-solid fa-star"></i>
-            </span>
-            <span v-else-if="`${valutation}` == 2">Voto:
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-            </span>
-            <span v-else-if="`${valutation}` == 3">Voto:
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-            </span>
-            <span v-else-if="`${valutation}` == 4">Voto:
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-            </span>
-            <span v-else-if="`${valutation}` == 5">Voto:
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-            </span>
-            <span v-else>Voto: non classificato
+            <span class="text-red">Titolo originale:</span>
+            <span>{{ titleFilm }}</span>
+            <span class="text-red">Titolo:</span>
+            <span>{{ title }}</span>
+
+            <span class="text-red">Lingua:</span>
+            <span v-if="language">
+                 <img v-if="language === 'Italiano'" src="../assets/img/italia.svg">
+                 <img v-if="language === 'English'" src="../assets/img/inghilterra.png">
+                 <img v-if="language === 'Espanol'" src="../assets/img/spagna.png">
+                 <img v-if="language === 'Francais'" src="../assets/img/francia.png">
+                 <img v-if="language === 'Sconosciuta'" src="../assets/img/interrogativo.png">
             </span>
 
-        </div>
+            <!-- star -->
+            <span class="text-red" v-if="valutation !== 0">Voto:
+                <i v-if="valutation >= 1" class="fa-solid fa-star"></i>
+                <i v-if="valutation >= 2" class="fa-solid fa-star"></i>
+                <i v-if="valutation >= 3" class="fa-solid fa-star"></i>
+                <i v-if="valutation >= 4" class="fa-solid fa-star"></i>
+                <i v-if="valutation >= 5" class="fa-solid fa-star"></i>
+            </span>
+            <span v-else>
+                non classificato!
+            </span>
+            <!-- star -->
     </div>
-    
+    </div>
+
 </template>
 
 <style lang="scss" scoped>
 @use "../style/partials/variable" as *;
 @use "../style/partials/mixin" as *;
-.card-container{
+
+.card-container {
     position: relative;
-    height: 80%;
+    height: 100%;
     width: 100%;
-    .front-card,
-    .back-card{
+
+    .back-card,.front-card {
         height: 100%;
         width: 100%;
-    }
-    img{
-        height: 100%;
-    }
-    .back-card{
+    }    
+    .back-card {
+        padding: 10px;
         font-size: 13px;
         opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
-    &:hover{
+    .front-card img{
+        width: 100%;
+        height: 100%;
+    }
+    
+    &:hover {
         transition: 1s;
         background-color: $white;
-        .front-card{
+        .front-card {
             transform: rotateY(180deg);
             transition: 1s;
             opacity: 0;
         }
-        .back-card{
+        .back-card {
             opacity: 1;
             transition: 2s;
-            position: absolute;
-            top: 0;
-            left: 0;
+            span {
+                display: block;
+                img{
+                    width: 30px;
+                }
+            }
+        
+            span:last-child {
+                color: $black;
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
+            }
         }
     }
-    span{
-        display: block;
-    }
-    span:nth-child(3){
-        position: absolute;
-        bottom: 5px;
-        right: 5px;
-    }
+
 }
 </style>
