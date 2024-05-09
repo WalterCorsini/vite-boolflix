@@ -85,57 +85,52 @@ export default {
 
 .card-container {
     position: relative;
-    height: 80%;
+    height: 100%;
     width: 100%;
 
-    .front-card,
-    .back-card {
-        padding: 10px;
+    .back-card,.front-card {
         height: 100%;
         width: 100%;
-    }
-
-    img {
-        height: 100%;
-    }
-
+    }    
     .back-card {
+        padding: 10px;
         font-size: 13px;
         opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
-
+    .front-card img{
+        width: 100%;
+        height: 100%;
+    }
+    
     &:hover {
         transition: 1s;
         background-color: $white;
-
         .front-card {
             transform: rotateY(180deg);
             transition: 1s;
             opacity: 0;
         }
-
         .back-card {
             opacity: 1;
             transition: 2s;
-            position: absolute;
-            top: 0;
-            left: 0;
+            span {
+                display: block;
+                img{
+                    width: 30px;
+                }
+            }
+        
+            span:last-child {
+                color: $black;
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
+            }
         }
     }
 
-    span {
-        display: block;
-
-        img {
-            width: 30px;
-        }
-    }
-
-    span:last-child {
-        color: $black;
-        position: absolute;
-        bottom: 5px;
-        right: 5px;
-    }
 }
 </style>
