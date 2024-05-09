@@ -76,12 +76,14 @@ export default {
 
             <!-- star -->
             <div class="rating">
-                <span class="text-red" v-if="valutation !== 0">Voto:
-                    <i v-for="i in valutation" class="fa-solid fa-star"></i>
+                <span>Voto:</span>
+                <span class="text-red" v-for="i in valutation">
+                    <i class="fa-solid fa-star"></i>
                 </span>
-                <span v-else>
-                    <strong>Nessun Voto</strong>
+                <span class="text-red" v-for="i in 5-valutation">
+                    <i class="fa-regular fa-star"></i>
                 </span>
+
             </div>
             <!-- /star -->
 
@@ -156,6 +158,7 @@ export default {
             
             .rating{
                 color: $black;
+                display: flex;
                 position: absolute;
                 bottom: 5px;
                 right: 5px;
