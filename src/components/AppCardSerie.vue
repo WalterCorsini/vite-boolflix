@@ -93,6 +93,8 @@ export default {
         width: 100%;
     }    
     .back-card {
+        transform: rotateY(180deg);
+        background-color: $white;
         padding: 10px;
         font-size: 13px;
         opacity: 0;
@@ -106,16 +108,17 @@ export default {
     }
     
     &:hover {
+        transform-style: preserve-3d;
         transition: 1s;
-        background-color: $white;
         .front-card {
             transform: rotateY(180deg);
             transition: 1s;
             opacity: 0;
         }
         .back-card {
+            transform: rotateY(360deg);
             opacity: 1;
-            transition: 2s;
+            transition: 1s;
             span {
                 display: block;
                 img{
