@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             number: 0,
-            flag: ["en","it","es","fr"]
+            flag: ["en", "it", "es", "fr"]
         }
     },
     props: {
@@ -16,16 +16,16 @@ export default {
             return `https://image.tmdb.org/t/p/w342${this.cardObj.poster_path}`;
         },
         titleFilm() {
-            if(this.cardObj.original_title){
+            if (this.cardObj.original_title) {
                 return `${this.cardObj.original_title}`;
-            } else{
+            } else {
                 return `${this.cardObj.original_name}`;
             }
         },
         title() {
-            if(this.cardObj.original_title){
+            if (this.cardObj.original_title) {
                 return `${this.cardObj.title}`;
-            } else{
+            } else {
                 return `${this.cardObj.name}`;
             }
         },
@@ -35,9 +35,9 @@ export default {
             return this.number;
         },
     },
-    methods:{
-        getImage(name){
-            if(this.flag.includes(name)){
+    methods: {
+        getImage(name) {
+            if (this.flag.includes(name)) {
                 return new URL(`../assets/img/${name}.png`, import.meta.url).href;
             } else {
                 return new URL(`../assets/img/int.png`, import.meta.url).href;
@@ -49,18 +49,30 @@ export default {
 
 <template>
     <div class="card-container">
+        <!-- front -->
         <div class="front-card">
             <img :src="`${Image}`" alt="">
         </div>
+        <!-- /front -->
+
+        <!-- back -->
         <div class="back-card">
             <span class="text-red">Titolo originale:</span>
             <span>{{ titleFilm }}</span>
             <span class="text-red">Titolo:</span>
             <span>{{ title }}</span>
-
             <span class="text-red">Lingua:</span>
+
             <!--  settare per tutte le bandiere -->
             <img :src="getImage(cardObj.original_language)">
+            <!--  /settare per tutte le bandiere -->
+
+            <div class="overview">
+                <span class="text-red">Trama:</span>
+                <div class="overview-text">
+                    {{ cardObj.overview }}
+                </div>
+            </div>
 
             <!-- star -->
             <span class="text-red" v-if="valutation !== 0">Voto:
@@ -69,8 +81,10 @@ export default {
             <span v-else>
                 non classificato!
             </span>
-            <!-- star -->
-    </div>
+            <!-- /star -->
+        </div>
+        <!-- /back -->
+
     </div>
 
 </template>
@@ -84,10 +98,12 @@ export default {
     height: 100%;
     width: 100%;
 
-    .back-card,.front-card {
+    .back-card,
+    .front-card {
         height: 100%;
         width: 100%;
-    }    
+    }
+
     .back-card {
         transform: rotateY(180deg);
         background-color: lightblue;
@@ -98,35 +114,54 @@ export default {
         top: 0;
         left: 0;
     }
-    .front-card img{
+
+    .front-card img {
         width: 100%;
         height: 100%;
     }
-    
+
+    .overview-text{
+        overflow-y: hidden;
+    }
     &:hover {
         transform-style: preserve-3d;
         transition: 1s;
+
         .front-card {
             transform: rotateY(180deg);
             transition: 1s;
             opacity: 0;
         }
+
         .back-card {
             transform: rotateY(360deg);
             opacity: 1;
             transition: 1s;
             span {
+                font-size: 12px;
                 display: block;
             }
-            img{
-                width: 30px;
-            }
-        
-            span:last-child {
+            
+            span:nth-child(8) {
                 color: $black;
                 position: absolute;
                 bottom: 5px;
                 right: 5px;
+            }
+            
+            img {
+                width: 30px;
+            }
+            .overview{
+                width: 100%;
+                height: 100%;
+                .overview-text{
+                    font-size: 12px;
+                    width: 95%;
+                    height: 30%;
+                    display: inline-block;
+                    overflow-y: auto;
+                }
             }
         }
     }
