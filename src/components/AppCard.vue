@@ -80,19 +80,18 @@ export default {
                 <span class="text-red" v-for="i in valutation">
                     <i class="fa-solid fa-star"></i>
                 </span>
-                <span class="text-red" v-for="i in 5-valutation">
+                <span class="text-red" v-for="i in 5 - valutation">
                     <i class="fa-regular fa-star"></i>
                 </span>
-
             </div>
             <!-- /star -->
 
-
-            <!-- pop up cast -->
-            <!-- <div v-if="cardObj.overview" class="popup">
-                lorem
+            <!-- popup -->
+            <!-- <div v-if="isVisiblePopup" class="popup">
+                ciao
             </div> -->
-            <!-- /pop up cast -->
+            <!-- /popup -->
+
         </div>
         <!-- /back -->
 
@@ -115,7 +114,10 @@ export default {
         width: 100%;
         border-radius: 20px;
     }
-
+    .front-card{
+        position: relative;
+        z-index: -1;
+    }
     .back-card {
         transform: rotateY(180deg);
         background-color: lightblue;
@@ -125,6 +127,32 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
+
+        span {
+            font-size: 12px;
+            display: block;
+        }
+
+        .rating {
+            color: $black;
+            display: flex;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+
+        .popup {
+            width: 100%;
+            height: 100%;
+            background-color: $black;
+            color:  $white;
+            padding: 10px;
+            position: absolute;
+            z-index: 9999;
+            top: 10%;
+            left: 0;
+            border-radius: 20px;
+        }
     }
 
     .front-card img {
@@ -134,14 +162,16 @@ export default {
 
     }
 
-    .overview-text{
+    .overview-text {
         overflow-y: hidden;
     }
+
     &:hover {
         transform-style: preserve-3d;
         transition: 1s;
 
         .front-card {
+            transition: 1s;
             transform: rotateY(180deg);
             transition: 1s;
             opacity: 0;
@@ -151,45 +181,30 @@ export default {
             transform: rotateY(360deg);
             opacity: 1;
             transition: 1s;
-            span {
-                font-size: 12px;
-                display: block;
-            }
-            
-            .rating{
-                color: $black;
-                display: flex;
-                position: absolute;
-                bottom: 5px;
-                right: 5px;
-            }
-            
+
             img {
                 width: 30px;
             }
-            .overview{
+
+            .overview {
                 width: 100%;
                 height: 100%;
-                .overview-text{
+
+                .overview-text {
                     font-size: 12px;
-                    width: 107%;
+                    width: 104%;
                     height: 30%;
                     display: inline-block;
                     overflow-y: auto;
                 }
             }
-            .popup{
-                width: 100%;
-                height: 20%;
-                padding: 5px;
-                border-radius: 10px;
-                position: absolute;
-                top: -10%;
-                left: 85%;
-                background-color: $white;
-            }
         }
     }
-
+    .hidden{
+        opacity: 0;
+    }
+    .visible{
+        opacity: 1;
+    }
 }
 </style>
