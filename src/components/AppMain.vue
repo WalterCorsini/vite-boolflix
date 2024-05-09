@@ -24,7 +24,7 @@ export default {
     <span v-if="store.arrayFilm.length > 0">Series</span>
     <div class="container" v-show="this.store.arrayFilm.length !== 0">
         <div v-show ="curSerie.poster_path" class="card" v-for="curSerie in store.arraySerie">
-          <AppCard :cardObj="curSerie" />
+          <AppCard :cardObj="curSerie" :castObj="curSerie" />
         </div>
     </div>
     </div>

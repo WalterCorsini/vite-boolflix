@@ -80,10 +80,17 @@ export default {
                     <i v-for="i in valutation" class="fa-solid fa-star"></i>
                 </span>
                 <span v-else>
-                    non classificato!
+                    <strong>Nessun Voto</strong>
                 </span>
             </div>
             <!-- /star -->
+
+
+            <!-- pop up cast -->
+            <!-- <div v-if="cardObj.overview" class="popup">
+                lorem
+            </div> -->
+            <!-- /pop up cast -->
         </div>
         <!-- /back -->
 
@@ -167,6 +174,16 @@ export default {
                     display: inline-block;
                     overflow-y: auto;
                 }
+            }
+            .popup{
+                width: 100%;
+                height: 20%;
+                padding: 5px;
+                border-radius: 10px;
+                position: absolute;
+                top: -10%;
+                left: 85%;
+                background-color: $white;
             }
         }
     }
