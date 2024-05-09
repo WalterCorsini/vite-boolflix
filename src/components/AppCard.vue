@@ -4,8 +4,8 @@ import { computed } from 'vue';
 export default {
     data() {
         return {
-            number: 0,
-            flag: ["en", "it", "es", "fr"]
+            flag: ["en", "it", "es", "fr"],
+            flip: false,
         }
     },
     props: {
@@ -30,9 +30,8 @@ export default {
             }
         },
         valutation() {
-            this.number = Math.round(Math.round(this.cardObj.vote_average) / 2);
-            console.log(this.number);
-            return this.number;
+            return Math.round(this.cardObj.vote_average / 2);
+  
         },
     },
     methods: {
@@ -48,15 +47,15 @@ export default {
 </script>
 
 <template>
-    <div class="card-container">
+    <div @click.stop="flip = !flip" class="card-container">
         <!-- front -->
-        <div class="front-card">
+        <div :class="flip ? 'flip-front' : ''" class="front-card">
             <img :src="`${Image}`" alt="">
         </div>
         <!-- /front -->
 
         <!-- back -->
-        <div class="back-card">
+        <div :class="flip ? 'flip-back' : ''" class="back-card">
             <span class="text-red">Titolo originale:</span>
             <span>{{ titleFilm }}</span>
             <span class="text-red">Titolo:</span>
@@ -107,9 +106,11 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
-
+    
     .back-card,
     .front-card {
+        transform-style: preserve-3d;
+        transition: 1s;
         height: 100%;
         width: 100%;
         border-radius: 20px;
@@ -119,6 +120,8 @@ export default {
         z-index: -1;
     }
     .back-card {
+        display: flex;
+        flex-direction: column;
         transform: rotateY(180deg);
         background-color: lightblue;
         padding: 10px;
@@ -127,6 +130,10 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
+        
+        img {
+                width: 30px;
+            }
 
         span {
             font-size: 12px;
@@ -153,6 +160,15 @@ export default {
             left: 0;
             border-radius: 20px;
         }
+
+        .overview-text{
+            width: 100%;
+            flex-grow: 1;
+            max-height: 200px;
+            font-size: 12px;
+            display: inline-block;
+            overflow-y: auto;
+        }
     }
 
     .front-card img {
@@ -166,40 +182,18 @@ export default {
         overflow-y: hidden;
     }
 
-    &:hover {
-        transform-style: preserve-3d;
-        transition: 1s;
 
-        .front-card {
-            transition: 1s;
+        .flip-front {
             transform: rotateY(180deg);
             transition: 1s;
             opacity: 0;
         }
-
-        .back-card {
+        .flip-back {
             transform: rotateY(360deg);
             opacity: 1;
             transition: 1s;
-
-            img {
-                width: 30px;
-            }
-
-            .overview {
-                width: 100%;
-                height: 100%;
-
-                .overview-text {
-                    font-size: 12px;
-                    width: 104%;
-                    height: 30%;
-                    display: inline-block;
-                    overflow-y: auto;
-                }
-            }
         }
-    }
+
     .hidden{
         opacity: 0;
     }
