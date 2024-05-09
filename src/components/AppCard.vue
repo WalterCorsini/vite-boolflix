@@ -67,7 +67,7 @@ export default {
             <img :src="getImage(cardObj.original_language)">
             <!--  /settare per tutte le bandiere -->
 
-            <div class="overview">
+            <div v-if="cardObj.overview" class="overview">
                 <span class="text-red">Trama:</span>
                 <div class="overview-text">
                     {{ cardObj.overview }}
@@ -75,12 +75,14 @@ export default {
             </div>
 
             <!-- star -->
-            <span class="text-red" v-if="valutation !== 0">Voto:
-                <i v-for="i in valutation" class="fa-solid fa-star"></i>
-            </span>
-            <span v-else>
-                non classificato!
-            </span>
+            <div class="rating">
+                <span class="text-red" v-if="valutation !== 0">Voto:
+                    <i v-for="i in valutation" class="fa-solid fa-star"></i>
+                </span>
+                <span v-else>
+                    non classificato!
+                </span>
+            </div>
             <!-- /star -->
         </div>
         <!-- /back -->
@@ -145,7 +147,7 @@ export default {
                 display: block;
             }
             
-            span:nth-child(8) {
+            .rating{
                 color: $black;
                 position: absolute;
                 bottom: 5px;
@@ -160,7 +162,7 @@ export default {
                 height: 100%;
                 .overview-text{
                     font-size: 12px;
-                    width: 95%;
+                    width: 107%;
                     height: 30%;
                     display: inline-block;
                     overflow-y: auto;
