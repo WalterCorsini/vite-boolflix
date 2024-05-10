@@ -14,12 +14,15 @@ export default {
         cardCast: Number,
         ind: Number,
     },
+    created(){
+        this.cardObj.popup = false;
+    },
     computed: {
         Image() {
-            this.cardObj.popup = false;
             return `https://image.tmdb.org/t/p/w342${this.cardObj.poster_path}`;
         },
         titleFilm() {
+            
             //  se non funziona uso !!  perche ho un valore booleano ma  la condizione non la vede come tale
             return this.cardObj.original_title ?  this.cardObj.original_title : this.cardObj.original_name;
         },
@@ -83,6 +86,7 @@ export default {
             <!-- /star -->
             <button class="btn-cast" @click="cardObj.popup = !cardObj.popup , $emit('cast',cardObj.id,ind )">vedi cast</button>
             <div class="overlay" v-if="cardObj.popup && ind === store.activePopup">
+                <!-- cambiare condizione div per chiudere popup anche a serie perche il cardObj.popup sta funzionando solo per i film... -->
                 {{ store.listcast }}
             </div>
         </div>

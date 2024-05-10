@@ -13,19 +13,23 @@ export default {
     },
     methods: {
         searchCastSerie(curElem,curInd) {
-            store.activePopup = curInd;
+            if(this.store.arraySerie[curInd].popup === true){
+                this.store.arraySerie[this.store.activePopup].popup = false;
+                console.log("sono attivo falso");
+            }
             this.store.arraySerie[curInd].popup = false;
             
             this.store.listCast = curElem;
             console.log(this.store.listCast);
             // qui creiamo chiamata del cast con l'id del film o della serie e la rimandiamo nel pop up di app card tramite store
-            const paramsobj = {
-                api_key: this.store.apiKey
-            }
-            axios.get("https://api.themoviedb.org/3/tv/31444/credits?api_key=05a99922144cdd99851de6215573f3f0").then((resp) => {
-                // this.store.listCastArray = resp.data.results;
-                console.log("series", resp.data.cast);
-            });
+            // const paramsobj = {
+            //     api_key: this.store.apiKey
+            // }
+            // axios.get("https://api.themoviedb.org/3/tv/31444/credits?api_key=05a99922144cdd99851de6215573f3f0").then((resp) => {
+            //     // this.store.listCastArray = resp.data.results;
+            //     console.log("series", resp.data.cast);
+            // });
+            store.activePopup = curInd;
         }
     }
 }
