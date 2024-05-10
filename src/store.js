@@ -2,7 +2,7 @@ import { reactive } from "vue";
 export const store = reactive({
     arrayFilm: [],
     arraySerie: [],
-    popup:false,
+    activePopup: 0,
     listCast:0,
     listCastArray:[],
     searchQuery: "ciao", // v.model

@@ -12,7 +12,7 @@ export default {
     props: {
         cardObj: Object,
         cardCast: Number,
-        i: Number,
+        ind: Number,
     },
     computed: {
         Image() {
@@ -81,8 +81,8 @@ export default {
                 </span>
             </div>
             <!-- /star -->
-            <button class="btn-cast" @click="cardObj.popup = !cardObj.popup , $emit('cast',cardObj.id )">vedi cast</button>
-            <div class="overlay" v-if="cardObj.popup">
+            <button class="btn-cast" @click="cardObj.popup = !cardObj.popup , $emit('cast',cardObj.id,ind )">vedi cast</button>
+            <div class="overlay" v-if="cardObj.popup && ind === store.activePopup">
                 {{ store.listcast }}
             </div>
         </div>
