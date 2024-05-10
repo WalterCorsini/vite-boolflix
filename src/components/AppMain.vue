@@ -16,15 +16,13 @@ export default {
         searchCastSerie(curElem, curInd) {
             let FioSe = "";
             // show or not pop up
+            curElem.popup = !curElem.popup;
             if (curInd !== this.store.activePopup) {
                 console.log("entro");
                 this.store.arrayFilm[this.store.activePopup].popup = false;
                 curElem.popup = true;
                 store.activePopup = curInd;
-                curInd = this.store.activePopup;
-            } else if (curElem.popup) {
-                curElem.popup = false;
-            }
+            }            
             // show or not pop up
 
             // condition api for film or series...

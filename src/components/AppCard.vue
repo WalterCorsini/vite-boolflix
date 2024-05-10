@@ -88,7 +88,10 @@ export default {
             <!-- overlay cast -->
             <button class="btn-cast" @click="$emit('cast', cardObj, ind)">vedi cast</button>
             <div class="overlay" v-show="ind === store.activePopup && cardObj.popup === true">
-                {{ store.listcast }}
+                <h2 v-if="this.store.listCastArray.length === 0"> NESSUNA LISTA ATTORI PRESENTE</h2>
+                <ul>
+                    <li v-for="curName in this.store.listCastArray"> {{ curName.name }}</li>
+                </ul>
             </div>
             <!-- /overlay cast -->
 
@@ -162,6 +165,14 @@ export default {
             top: 15%;
             left: 0;
             border-radius: 20px;
+            overflow-y: auto;
+            scrollbar-width: none;
+            text-align: center;
+            ul{
+                list-style: none;
+                padding: 10px;
+                line-height: 20px;
+            }
         }
 
         .overview-text {
@@ -171,6 +182,7 @@ export default {
             font-size: 12px;
             display: inline-block;
             overflow-y: auto;
+            scrollbar-width: none;
         }
 
         .btn-cast {
