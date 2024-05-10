@@ -14,7 +14,7 @@ export default {
         cardCast: Number,
         ind: Number,
     },
-    created(){
+    created() {
         this.cardObj.popup = false;
     },
     computed: {
@@ -22,13 +22,13 @@ export default {
             return `https://image.tmdb.org/t/p/w342${this.cardObj.poster_path}`;
         },
         titleFilm() {
-            
+
             //  se non funziona uso !!  perche ho un valore booleano ma  la condizione non la vede come tale
-            return this.cardObj.original_title ?  this.cardObj.original_title : this.cardObj.original_name;
+            return this.cardObj.original_title ? this.cardObj.original_title : this.cardObj.original_name;
         },
         title() {
             //  se non funziona uso !!  perche ho un valore booleano ma  la condizione non la vede come tale
-            return this.cardObj.title ?  this.cardObj.title : this.cardObj.name;
+            return this.cardObj.title ? this.cardObj.title : this.cardObj.name;
         },
         valutation() {
             return Math.round(this.cardObj.vote_average / 2);
@@ -86,9 +86,8 @@ export default {
             <!-- /star -->
 
             <!-- overlay cast -->
-            <button class="btn-cast" @click="$emit('cast',cardObj,ind )">vedi cast</button>
-            <div class="overlay" 
-                v-show="ind === store.activePopup && cardObj.popup === true">
+            <button class="btn-cast" @click="$emit('cast', cardObj, ind)">vedi cast</button>
+            <div class="overlay" v-show="ind === store.activePopup && cardObj.popup === true">
                 {{ store.listcast }}
             </div>
             <!-- /overlay cast -->
@@ -108,7 +107,7 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
-    
+
     .back-card,
     .front-card {
         transform-style: preserve-3d;
@@ -117,10 +116,12 @@ export default {
         width: 100%;
         border-radius: 20px;
     }
-    .front-card{
+
+    .front-card {
         position: relative;
         z-index: -1;
     }
+
     .back-card {
         display: flex;
         flex-direction: column;
@@ -132,10 +133,10 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
-        
+
         img {
-                width: 30px;
-            }
+            width: 30px;
+        }
 
         span {
             font-size: 12px;
@@ -153,8 +154,8 @@ export default {
         .overlay {
             width: 100%;
             height: 50%;
-            background-color: rgba($color: #000000, $alpha:0.7);
-            color:  $white;
+            background-color: rgba($color: #000000, $alpha: 0.7);
+            color: $white;
             padding: 10px;
             position: absolute;
             z-index: 9999;
@@ -163,7 +164,7 @@ export default {
             border-radius: 20px;
         }
 
-        .overview-text{
+        .overview-text {
             width: 100%;
             flex-grow: 1;
             max-height: 200px;
@@ -172,7 +173,7 @@ export default {
             overflow-y: auto;
         }
 
-        .btn-cast{
+        .btn-cast {
             position: absolute;
             top: 5%;
             right: 5%;
@@ -186,12 +187,13 @@ export default {
 
     }
 
-    &:hover{
+    &:hover {
         .front-card {
             transform: rotateY(180deg);
             transition: 1s;
             opacity: 0;
         }
+
         .back-card {
             transform: rotateY(360deg);
             opacity: 1;

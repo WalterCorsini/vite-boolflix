@@ -14,26 +14,38 @@ export default {
     },
     methods: {
         searchCastSerie(curElem, curInd) {
+            let FioSe = "";
             // show or not pop up
-            if(curInd !== this.store.activePopup){
+            if (curInd !== this.store.activePopup) {
                 console.log("entro");
                 this.store.arrayFilm[this.store.activePopup].popup = false;
                 curElem.popup = true;
                 store.activePopup = curInd;
-            } else if(curElem.popup){
+                curInd = this.store.activePopup;
+            } else if (curElem.popup) {
                 curElem.popup = false;
             }
             // show or not pop up
 
             // condition api for film or series...
-            if(curElem.title){
-                console.log("sono un film");
+            if (curElem.title) {
+                FioSe = "movie";
             } else {
-                console.log("sono una serie");
+                FioSe = "tv"
             }
+            console.log(curElem.id);
+            const paramsobj = {
+                api_key: this.store.apiKey,
+            }
+            axios.get(`https://api.themoviedb.org/3/${FioSe}/${curElem.id}/credits`, {
+                params: paramsobj
+            }).then((resp) => {
+                this.store.listCastArray = resp.data.cast;
+                console.log(resp.data.cast);
+            });
             // condition api for film or series...
 
-            
+
         }
     }
 }
