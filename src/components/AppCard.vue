@@ -189,6 +189,16 @@ export default {
             position: absolute;
             top: 5%;
             right: 5%;
+            border: 2px solid $black;
+            color: $black;
+            background-color: transparent;
+            padding: 5px;
+            border-radius: 10px;
+            &:hover{
+                background-color: $blue;
+                color: $white;
+                border: 2px solid $black;
+            }
         }
     }
 
