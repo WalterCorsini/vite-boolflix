@@ -63,13 +63,16 @@ export default {
             <span class="text-red">Lingua:</span>
 
             <!--  settare per tutte le bandiere -->
-            <img :src="getImage(cardObj.original_language)">
+            <div class="cont-language">
+                <img :src="getImage(cardObj.original_language)">
+                <button class="btn-cast" @click="$emit('cast', cardObj, ind)">vedi cast</button>
+            </div>
             <!--  /settare per tutte le bandiere -->
 
             <div v-if="cardObj.overview" class="overview">
                 <span class="text-red">Trama:</span>
                 <div class="overview-text">
-                    {{ cardObj.overview }}
+                    <span>{{ cardObj.overview }}</span>
                 </div>
             </div>
 
@@ -86,7 +89,6 @@ export default {
             <!-- /star -->
 
             <!-- overlay cast -->
-            <button class="btn-cast" @click="$emit('cast', cardObj, ind)">vedi cast</button>
             <div class="overlay" v-show="ind === store.activePopup && cardObj.popup === true">
                 <h2 v-if="this.store.listCastArray.length === 0"> NESSUNA LISTA ATTORI PRESENTE</h2>
                 <ul>
@@ -131,18 +133,23 @@ export default {
         transform: rotateY(180deg);
         background-color: $lightgrey;
         padding: 10px;
-        font-size: 13px;
         opacity: 0;
         position: absolute;
         top: 0;
         left: 0;
+
+        .cont-language{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
         img {
             width: 30px;
         }
 
         span {
-            font-size: 12px;
+            font-size: clamp(0.3rem, 1vw, 0.7rem);
             display: block;
         }
 
@@ -162,7 +169,7 @@ export default {
             padding: 10px;
             position: absolute;
             z-index: 9999;
-            top: 15%;
+            top: 35%;
             left: 0;
             border-radius: 20px;
             overflow-y: auto;
@@ -186,9 +193,9 @@ export default {
         }
 
         .btn-cast {
-            position: absolute;
-            top: 5%;
-            right: 5%;
+            // position: absolute;
+            // top: 5%;
+            // right: 5%;
             border: 2px solid $black;
             color: $black;
             background-color: transparent;

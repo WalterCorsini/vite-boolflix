@@ -20,9 +20,9 @@ export default {
                     api_key: this.store.apiKey,
                     query: this.store.searchQuery,
                 }
-            const CallMovie = axios.get("https://api.themoviedb.org/3/search/tv",{
+            const CallMovie = axios.get("https://api.themoviedb.org/3/search/movie",{
                 params: paramsobj});
-            const CallSerie = axios.get("https://api.themoviedb.org/3/search/movie",{
+            const CallSerie = axios.get("https://api.themoviedb.org/3/search/tv",{
                 params: paramsobj});
 
             axios

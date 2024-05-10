@@ -15,15 +15,6 @@ export default {
     methods: {
         searchCastSerie(curElem, curInd) {
             let FioSe = "";
-            // show or not pop up
-            curElem.popup = !curElem.popup;
-            if (curInd !== this.store.activePopup) {
-                console.log("entro");
-                this.store.arrayFilm[this.store.activePopup].popup = false;
-                curElem.popup = true;
-                store.activePopup = curInd;
-            }            
-            // show or not pop up
 
             // condition api for film or series...
             if (curElem.title) {
@@ -31,6 +22,22 @@ export default {
             } else {
                 FioSe = "tv"
             }
+            // condition api for film or series...
+
+            // show or not pop up
+            curElem.popup = !curElem.popup;
+            if (curInd !== this.store.activePopup) {
+                if(FioSe = "movie"){
+                    this.store.arrayFilm[this.store.activePopup].popup = false;
+                } else {
+                    this.store.arraySerie[this.store.activePopup].popup = false;
+                }
+                curElem.popup = true;
+                store.activePopup = curInd;
+            }            
+            // show or not pop up
+
+
             console.log(curElem.id);
             const paramsobj = {
                 api_key: this.store.apiKey,
