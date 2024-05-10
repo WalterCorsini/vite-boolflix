@@ -13,6 +13,9 @@ export default {
     methods:{
         searchCast(curElem){
             console.log(curElem);
+            this.store.listcast = curElem;
+            console.log(this.store.listcast);
+            // qui creiamo chiamata del cast con l'id del film o della serie e la rimandiamo nel pop up di app card tramite store
         }
     }
 }
@@ -29,7 +32,7 @@ export default {
     <span v-if="store.arrayFilm.length > 0">Series</span>
     <div class="container" v-show="this.store.arrayFilm.length !== 0">
         <div v-show="curSerie.poster_path" class="card" v-for="curSerie in store.arraySerie">
-            <AppCard @cast="searchCast(value)" :cardObj="curSerie" />
+            <AppCard @cast="searchCast(value)" :cardObj="curSerie" :cardCast="listCast" />
         </div>
     </div>
     </div>

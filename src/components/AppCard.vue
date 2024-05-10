@@ -1,15 +1,18 @@
 <script>
 import { computed } from 'vue';
+import { store } from "../store";
 
 export default {
     data() {
         return {
             flag: ["en", "it", "es", "fr"],
             popup: false,
+            store,
         }
     },
     props: {
         cardObj: Object,
+        cardCast: Number,
         i: Number,
     },
     computed: {
@@ -86,7 +89,7 @@ export default {
             <!-- /star -->
             <button class="btn-cast" @click="popup = !popup , $emit('cast',cardObj.id)">vedi cast</button>
             <div class="overlay" v-if="popup">
-                ciao
+                {{ store.listcast }}
             </div>
         </div>
         <!-- /back -->
