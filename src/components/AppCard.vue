@@ -6,7 +6,6 @@ export default {
     data() {
         return {
             flag: ["en", "it", "es", "fr"],
-            popup: false,
             store,
         }
     },
@@ -17,21 +16,16 @@ export default {
     },
     computed: {
         Image() {
+            this.cardObj.popup = false;
             return `https://image.tmdb.org/t/p/w342${this.cardObj.poster_path}`;
         },
         titleFilm() {
-            if (this.cardObj.original_title) {
-                return `${this.cardObj.original_title}`;
-            } else {
-                return `${this.cardObj.original_name}`;
-            }
+            //  se non funziona uso !!  perche ho un valore booleano ma  la condizione non la vede come tale
+            return this.cardObj.original_title ?  this.cardObj.original_title : this.cardObj.original_name;
         },
         title() {
-            if (this.cardObj.original_title) {
-                return `${this.cardObj.title}`;
-            } else {
-                return `${this.cardObj.name}`;
-            }
+            //  se non funziona uso !!  perche ho un valore booleano ma  la condizione non la vede come tale
+            return this.cardObj.title ?  this.cardObj.title : this.cardObj.name;
         },
         valutation() {
             return Math.round(this.cardObj.vote_average / 2);
@@ -87,8 +81,8 @@ export default {
                 </span>
             </div>
             <!-- /star -->
-            <button class="btn-cast" @click="popup = !popup , $emit('cast',cardObj.id)">vedi cast</button>
-            <div class="overlay" v-if="popup">
+            <button class="btn-cast" @click="cardObj.popup = !cardObj.popup , $emit('cast',cardObj.id )">vedi cast</button>
+            <div class="overlay" v-if="cardObj.popup">
                 {{ store.listcast }}
             </div>
         </div>
