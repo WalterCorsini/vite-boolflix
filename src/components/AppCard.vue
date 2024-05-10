@@ -129,7 +129,7 @@ export default {
         display: flex;
         flex-direction: column;
         transform: rotateY(180deg);
-        background-color: lightblue;
+        background-color: $lightgrey;
         padding: 10px;
         font-size: 13px;
         opacity: 0;

@@ -20,24 +20,20 @@ export default {
                     api_key: this.store.apiKey,
                     query: this.store.searchQuery,
                 }
-            axios.get("https://api.themoviedb.org/3/search/tv",{
-                params: paramsobj
-            }).then((resp) => {
-                this.store.arraySerie = resp.data.results;
-                console.log("series",this.store.arraySerie);
-                this.store.searchQuery="";
-            });
-            axios.get("https://api.themoviedb.org/3/search/movie",{
-                params: paramsobj
-            }).then((resp) => {
-                this.store.arrayFilm = resp.data.results;
-                console.log("film",this.store.arrayFilm);
-            });
-        },
+            const CallMovie = axios.get("https://api.themoviedb.org/3/search/tv",{
+                params: paramsobj});
+            const CallSerie = axios.get("https://api.themoviedb.org/3/search/movie",{
+                params: paramsobj});
 
-
+            axios
+                .all([CallMovie,CallSerie])
+                .then((resp) => {
+                    this.store.arrayFilm = resp[0].data.results;
+                    this.store.arraySerie = resp[1].data.results;
+                })
+            }
+        }
     }
-}
 </script>
 
 <template>
