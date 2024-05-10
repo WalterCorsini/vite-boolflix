@@ -163,13 +163,13 @@ export default {
 
         .overlay {
             width: 100%;
-            height: 50%;
-            background-color: rgba($color: #000000, $alpha: 0.7);
+            height: 100%;
+            background-color: rgba($color: #000000, $alpha: 0.9);
             color: $white;
             padding: 10px;
             position: absolute;
             z-index: 9999;
-            top: 35%;
+            top: 0;
             left: 0;
             border-radius: 20px;
             overflow-y: auto;
@@ -193,9 +193,9 @@ export default {
         }
 
         .btn-cast {
-            // position: absolute;
-            // top: 5%;
-            // right: 5%;
+            position: absolute;
+            bottom:100%;
+            right: 5%;
             border: 2px solid $black;
             color: $black;
             background-color: transparent;
