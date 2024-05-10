@@ -138,7 +138,7 @@ export default {
         top: 0;
         left: 0;
 
-        .cont-language{
+        .cont-language {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -175,14 +175,17 @@ export default {
             overflow-y: auto;
             scrollbar-width: none;
             text-align: center;
-            ul{
+
+            ul {
                 list-style: none;
                 padding: 10px;
                 line-height: 20px;
             }
         }
-        .overview{
+
+        .overview {
             overflow-y: hidden;
+
             .overview-text {
                 width: 100%;
                 flex-grow: 1;
@@ -190,7 +193,8 @@ export default {
                 display: inline-block;
                 overflow-y: auto;
                 scrollbar-width: none;
-                span{
+
+                span {
                     font-size: 13px;
                 }
             }
@@ -198,14 +202,15 @@ export default {
 
         .btn-cast {
             position: absolute;
-            bottom:100%;
+            bottom: 100%;
             right: 5%;
             border: 2px solid $black;
             color: $black;
             background-color: $white;
             padding: 5px;
             border-radius: 10px;
-            &:hover{
+
+            &:hover {
                 background-color: $blue;
                 color: $white;
                 border: 2px solid $black;

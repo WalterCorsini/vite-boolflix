@@ -13,10 +13,13 @@ export default {
     <div class="header">
         <div class="container">
             <span>BOOLFLIX</span>
-            
+
             <div class="search-container">
-                <label for="search">trova un film</label>
-                <div>
+                <label for="search">trova un film </label>
+                <div class="select">
+                    <select @change="$emit('changeOption')" v-model="store.currentOption" name="selectType">
+                        <option id="selectType" :value="curOption.value" v-for="curOption in store.selectOption">{{ curOption.option }}</option>
+                    </select>
                     <input v-model="store.searchQuery" id="search" type="text" placeholder="ricerca..">
                     <button :disabled='store.searchQuery === ""' @click="$emit('searchFilm')">cerca</button>
                 </div>
@@ -32,12 +35,12 @@ export default {
 .header {
     height: 17vh;
     background-color: $black;
-    padding: 10px;
 
     .container {
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
+        height: 100%;
         width: 90%;
         margin: 0 auto;
 
@@ -50,13 +53,29 @@ export default {
         .search-container {
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
             padding: 10px;
             border: 2px solid $red;
             border-radius: 10px;
-
+            height: 60%;
+            select{
+                margin-right: 3px;
+            }
+            .select{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0;
+                margin: 0;
+                div{
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
             label {
                 color: $red;
-                margin-left: 20px;
+                margin: 0 4px;
             }
 
             input {
@@ -65,12 +84,11 @@ export default {
                 border-top-left-radius: 10px;
                 border-bottom-left-radius: 10px;
                 outline: 0;
-                padding-left: 10px;
-                padding: 1px 10px;
+                padding: 1px 11px;
+                width: 100px;
             }
 
             button {
-                // border: 1px solid red;
                 border: 0;
                 padding: 1px 10px;
                 background-color: red;

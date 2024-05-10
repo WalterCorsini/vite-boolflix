@@ -27,14 +27,14 @@ export default {
             // show or not pop up
             curElem.popup = !curElem.popup;
             if (curInd !== this.store.activePopup) {
-                if(FioSe = "movie"){
+                if (FioSe = "movie") {
                     this.store.arrayFilm[this.store.activePopup].popup = false;
                 } else {
                     this.store.arraySerie[this.store.activePopup].popup = false;
                 }
                 curElem.popup = true;
                 store.activePopup = curInd;
-            }            
+            }
             // show or not pop up
 
 
@@ -91,14 +91,17 @@ export default {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    .header-container{
+
+    .header-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        span:last-child{
+
+        span:last-child {
             font-size: 23px;
         }
     }
+
     span {
         text-align: right;
         font-size: 40px;
@@ -114,11 +117,13 @@ export default {
 
         .card {
             width: calc(100% / 5 - 40px / 5);
-            @media screen and (max-width: 968px){
-                width: calc(100% / 3 - 20px / 3 );
+
+            @media screen and (max-width: 968px) {
+                width: calc(100% / 3 - 20px / 3);
             }
-            @media screen and (max-width: 768px){
-                width: calc(100% / 2 - 10px );
+
+            @media screen and (max-width: 768px) {
+                width: calc(100% / 2 - 10px);
             }
         }
     }
