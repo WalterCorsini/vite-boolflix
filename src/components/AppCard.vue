@@ -84,11 +84,15 @@ export default {
                 </span>
             </div>
             <!-- /star -->
-            <button class="btn-cast" @click="cardObj.popup = !cardObj.popup , $emit('cast',cardObj.id,ind )">vedi cast</button>
-            <div class="overlay" v-if="cardObj.popup && ind === store.activePopup">
-                <!-- cambiare condizione div per chiudere popup anche a serie perche il cardObj.popup sta funzionando solo per i film... -->
+
+            <!-- overlay cast -->
+            <button class="btn-cast" @click="$emit('cast',cardObj,ind )">vedi cast</button>
+            <div class="overlay" 
+                v-show="ind === store.activePopup && cardObj.popup === true">
                 {{ store.listcast }}
             </div>
+            <!-- /overlay cast -->
+
         </div>
         <!-- /back -->
 

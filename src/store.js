@@ -3,6 +3,7 @@ export const store = reactive({
     arrayFilm: [],
     arraySerie: [],
     activePopup: 0,
+    popup: false,
     listCast:0,
     listCastArray:[],
     searchQuery: "ciao", // v.model
