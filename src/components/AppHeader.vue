@@ -38,13 +38,13 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 80%;
+        width: 90%;
         margin: 0 auto;
 
         span {
             color: $red;
             font-weight: 800;
-            font-size: 30px;
+            font-size: clamp(1.5rem, 3vw, 2rem);
         }
 
         .search-container {

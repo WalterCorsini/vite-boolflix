@@ -59,7 +59,10 @@ export default {
 <template>
     <div class="container-film-serie">
         <div v-if="store.arrayFilm.length > 0">
-            <span>Film</span>
+            <div class="header-container">
+                <span>Film</span>
+                <span>Trovati {{ store.arrayFilm.length }} Elementi</span>
+            </div>
             <div class="container" v-show="this.store.arrayFilm.length !== 0">
                 <div v-show="curFilm.poster_path" class="card" v-for="curFilm, index in store.arrayFilm">
                     <AppCard @cast="searchCastSerie" :cardObj="curFilm" :ind="index" />
@@ -67,7 +70,10 @@ export default {
             </div>
         </div>
         <div v-if="store.arraySerie.length > 0">
-            <span>Series</span>
+            <div class="header-container">
+                <span>Serie</span>
+                <span>Trovati {{ store.arrayFilm.length }} Elementi</span>
+            </div>
             <div class="container" v-show="this.store.arrayFilm.length !== 0">
                 <div v-show="curSerie.poster_path" class="card" v-for="curSerie, index in store.arraySerie">
                     <AppCard @cast="searchCastSerie" :cardObj="curSerie" :ind="index" />
@@ -85,7 +91,14 @@ export default {
     padding: 20px;
     display: flex;
     flex-direction: column;
-
+    .header-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        span:last-child{
+            font-size: 23px;
+        }
+    }
     span {
         text-align: right;
         font-size: 40px;
