@@ -84,7 +84,7 @@ export default {
                 </span>
             </div>
             <!-- /star -->
-            <button class="btn-cast" @click="popup = !popup">vedi cast</button>
+            <button class="btn-cast" @click="popup = !popup , $emit('cast',cardObj.id)">vedi cast</button>
             <div class="overlay" v-if="popup">
                 ciao
             </div>

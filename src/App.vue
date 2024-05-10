@@ -35,6 +35,7 @@ export default {
             });
         },
 
+
     }
 }
 </script>
@@ -42,7 +43,7 @@ export default {
 <template>
 
 <AppHeader @searchFilm="SearchFilmSeries"/>
-<AppMain/>
+<AppMain />
 </template>
 
 <style lang="scss">
