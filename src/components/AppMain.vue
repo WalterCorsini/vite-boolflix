@@ -101,6 +101,12 @@ export default {
 
         .card {
             width: calc(100% / 5 - 40px / 5);
+            @media screen and (max-width: 968px){
+                width: calc(100% / 3 - 20px / 3 );
+            }
+            @media screen and (max-width: 768px){
+                width: calc(100% / 2 - 10px );
+            }
         }
     }
 }

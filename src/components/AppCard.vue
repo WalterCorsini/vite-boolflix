@@ -149,7 +149,7 @@ export default {
         }
 
         span {
-            font-size: clamp(0.3rem, 1vw, 0.7rem);
+            font-size: 0.65rem;
             display: block;
         }
 
@@ -181,15 +181,19 @@ export default {
                 line-height: 20px;
             }
         }
-
-        .overview-text {
-            width: 100%;
-            flex-grow: 1;
-            max-height: 200px;
-            font-size: 12px;
-            display: inline-block;
-            overflow-y: auto;
-            scrollbar-width: none;
+        .overview{
+            overflow-y: hidden;
+            .overview-text {
+                width: 100%;
+                flex-grow: 1;
+                height: 150px;
+                display: inline-block;
+                overflow-y: auto;
+                scrollbar-width: none;
+                span{
+                    font-size: 13px;
+                }
+            }
         }
 
         .btn-cast {
@@ -198,7 +202,7 @@ export default {
             right: 5%;
             border: 2px solid $black;
             color: $black;
-            background-color: transparent;
+            background-color: $white;
             padding: 5px;
             border-radius: 10px;
             &:hover{
