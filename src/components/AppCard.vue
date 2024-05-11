@@ -8,6 +8,7 @@ export default {
             flag: ["en", "it", "es", "fr"],
             maxValue: 5,
             store,
+            isDecimal: false,
         }
     },
     props: {
@@ -34,6 +35,8 @@ export default {
         },
         valutation() {
             // TRASFORM AVERAGE BETWEEN 1 AND 5
+            Math.round(this.cardObj.vote_average)/2 % 2 ? this.isDecimal=false : this.isDecimal=true;
+            console.log(this.isDecimal);
             return Math.round(this.cardObj.vote_average / 2);
         },
     },
@@ -88,6 +91,9 @@ export default {
                 <span>Voto:</span>
                 <span class="text-red" v-for="i in valutation">
                     <i class="fa-solid fa-star"></i>
+                </span>
+                <span class="text-red" v-if="isDecimal ? 'valutation++' : ''">
+                    <i class="fa-solid fa-star-half-stroke"></i>
                 </span>
                 <span class="text-red" v-for="i in maxValue - valutation">
                     <i class="fa-regular fa-star"></i>
