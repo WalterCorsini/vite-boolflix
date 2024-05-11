@@ -237,7 +237,10 @@ export default {
 
         .rating {
             bottom: 5px;
-            right: 5px;
+            right: 15px;
+            i,span{
+                font-size: 15px;
+            }
         }
 
         .overlay {
