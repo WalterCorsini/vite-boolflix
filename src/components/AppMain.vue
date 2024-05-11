@@ -14,13 +14,13 @@ export default {
     },
     methods: {
         searchCast(curElem, curInd) {
+            store.listCastArray = "";
             let FioSe = "";
-            setTimeout(function(){
-                curElem.popup = !curElem.popup;
-            },2000);
             const paramsobj = {
                 api_key: this.store.apiKey,
             }
+
+            curElem.popup = !curElem.popup;
 
             // condition api for film or series...
             if (curElem.title) {
@@ -33,17 +33,17 @@ export default {
             axios.get(`https://api.themoviedb.org/3/${FioSe}/${curElem.id}/credits`, {
                 params: paramsobj
             }).then((resp) => {
-                this.store.listCastArray = resp.data.cast;
-                console.log(resp.data.cast);
-                // CLOSE OVERLAY AFTER 3 SECONDS
-                setTimeout(function(){
-                    if(FioSe === "movie"){
-                        store.arrayFilm[curInd].popup=false;
-                    } else {
-                        store.arraySerie[curInd].popup=false;
-                    }
-                },5000);
+                store.listCastArray = resp.data.cast;
             });
+
+            // CLOSE OVERLAY AFTER 3 SECONDS
+            setTimeout(function () {
+                if (FioSe === "movie") {
+                    store.arrayFilm[curInd].popup = false;
+                } else {
+                    store.arraySerie[curInd].popup = false;
+                }
+            }, 4500);
         }
     }
 }
