@@ -13,8 +13,12 @@ export default {
         }
     },
     methods: {
-        searchCastSerie(curElem, curInd) {
+        searchCast(curElem, curInd) {
             let FioSe = "";
+            curElem.popup = !curElem.popup;
+            const paramsobj = {
+                api_key: this.store.apiKey,
+            }
 
             // condition api for film or series...
             if (curElem.title) {
@@ -22,35 +26,22 @@ export default {
             } else {
                 FioSe = "tv"
             }
-            // condition api for film or series...
+            // /condition api for film or series...
 
-            // show or not pop up
-            curElem.popup = !curElem.popup;
-            if (curInd !== this.store.activePopup) {
-                if (FioSe = "movie") {
-                    this.store.arrayFilm[this.store.activePopup].popup = false;
-                } else {
-                    this.store.arraySerie[this.store.activePopup].popup = false;
-                }
-                curElem.popup = true;
-                store.activePopup = curInd;
-            }
-            // show or not pop up
-
-
-            console.log(curElem.id);
-            const paramsobj = {
-                api_key: this.store.apiKey,
-            }
             axios.get(`https://api.themoviedb.org/3/${FioSe}/${curElem.id}/credits`, {
                 params: paramsobj
             }).then((resp) => {
                 this.store.listCastArray = resp.data.cast;
                 console.log(resp.data.cast);
+                // CLOSE OVERLAY AFTER 3 SECONDS
+                setTimeout(function(){
+                    if(FioSe === "movie"){
+                        store.arrayFilm[curInd].popup=false;
+                    } else {
+                        store.arraySerie[curInd].popup=false;
+                    }
+                },3000);
             });
-            // condition api for film or series...
-
-
         }
     }
 }
@@ -58,6 +49,8 @@ export default {
 
 <template>
     <div class="container-film-serie">
+
+        <!-- FILM -->
         <div v-if="store.arrayFilm.length > 0">
             <div class="header-container">
                 <span>Film</span>
@@ -65,10 +58,13 @@ export default {
             </div>
             <div class="container" v-show="this.store.arrayFilm.length !== 0">
                 <div v-show="curFilm.poster_path" class="card" v-for="curFilm, index in store.arrayFilm">
-                    <AppCard @cast="searchCastSerie" :cardObj="curFilm" :ind="index" />
+                    <AppCard @cast="searchCast" :cardObj="curFilm" :ind="index" />
                 </div>
             </div>
         </div>
+        <!-- /FILM -->
+
+        <!-- SERIE -->
         <div v-if="store.arraySerie.length > 0">
             <div class="header-container">
                 <span>Serie</span>
@@ -76,10 +72,12 @@ export default {
             </div>
             <div class="container" v-show="this.store.arrayFilm.length !== 0">
                 <div v-show="curSerie.poster_path" class="card" v-for="curSerie, index in store.arraySerie">
-                    <AppCard @cast="searchCastSerie" :cardObj="curSerie" :ind="index" />
+                    <AppCard @cast="searchCast" :cardObj="curSerie" :ind="index" />
                 </div>
             </div>
         </div>
+        <!-- /SERIE -->
+
     </div>
 </template>
 
@@ -87,13 +85,23 @@ export default {
 @use "../style/partials/variable" as *;
 @use "../style/partials/mixin" as *;
 
+//  COMMONS
+
+.container-film-serie,
+.header-container,
+.container {
+    display: flex;
+}
+
+//  NO COMMONS
 .container-film-serie {
     padding: 20px;
-    display: flex;
+    padding-top: 100px;
+    margin-bottom: 30px;
     flex-direction: column;
 
     .header-container {
-        display: flex;
+        margin: 30px;
         justify-content: space-between;
         align-items: center;
 
@@ -109,8 +117,6 @@ export default {
     }
 
     .container {
-
-        display: flex;
         justify-content: flex-start;
         gap: 10px;
         flex-wrap: wrap;

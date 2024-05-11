@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             flag: ["en", "it", "es", "fr"],
+            maxValue: 5,
             store,
         }
     },
@@ -15,26 +16,29 @@ export default {
         ind: Number,
     },
     created() {
+        // CREATE KEY POPUP FOR ALL CARD IN TO ARRAY
         this.cardObj.popup = false;
     },
     computed: {
         Image() {
+            // TO CREATE DYNAMIC IMAGE
             return `https://image.tmdb.org/t/p/w342${this.cardObj.poster_path}`;
         },
         titleFilm() {
-
-            //  se non funziona uso !!  perche ho un valore booleano ma  la condizione non la vede come tale
+            // RETURN ORIGINAL_TITLE OR ORIGINAL_NAME IF IS FILM OR SERIE
             return this.cardObj.original_title ? this.cardObj.original_title : this.cardObj.original_name;
         },
         title() {
-            //  se non funziona uso !!  perche ho un valore booleano ma  la condizione non la vede come tale
+            // RETURN TITLE OR NAME IF IS FILM OR SERIE
             return this.cardObj.title ? this.cardObj.title : this.cardObj.name;
         },
         valutation() {
+            // TRASFORM AVERAGE BETWEEN 1 AND 5
             return Math.round(this.cardObj.vote_average / 2);
         },
     },
     methods: {
+        // CREATE URL FOR FLAG
         getImage(name) {
             if (this.flag.includes(name)) {
                 return new URL(`../assets/img/${name}.png`, import.meta.url).href;
@@ -62,19 +66,22 @@ export default {
             <span>{{ title }}</span>
             <span class="text-red">Lingua:</span>
 
-            <!--  settare per tutte le bandiere -->
+            <!--  flag -->
             <div class="cont-language">
                 <img :src="getImage(cardObj.original_language)">
                 <button class="btn-cast" @click="$emit('cast', cardObj, ind)">vedi cast</button>
             </div>
-            <!--  /settare per tutte le bandiere -->
+            <!--  /flag -->
 
+            <!-- trailer -->
             <div v-if="cardObj.overview" class="overview">
                 <span class="text-red">Trama:</span>
                 <div class="overview-text">
                     <span>{{ cardObj.overview }}</span>
                 </div>
             </div>
+            <!-- trailer -->
+
 
             <!-- star -->
             <div class="rating">
@@ -82,20 +89,20 @@ export default {
                 <span class="text-red" v-for="i in valutation">
                     <i class="fa-solid fa-star"></i>
                 </span>
-                <span class="text-red" v-for="i in 5 - valutation">
+                <span class="text-red" v-for="i in maxValue - valutation">
                     <i class="fa-regular fa-star"></i>
                 </span>
             </div>
             <!-- /star -->
 
-            <!-- overlay cast -->
-            <div class="overlay" v-show="ind === store.activePopup && cardObj.popup === true">
+            <!-- cast -->
+            <div class="overlay" v-show="cardObj.popup === true">
                 <h2 v-if="this.store.listCastArray.length === 0"> NESSUNA LISTA ATTORI PRESENTE</h2>
                 <ul>
                     <li v-for="curName in this.store.listCastArray"> {{ curName.name }}</li>
                 </ul>
             </div>
-            <!-- /overlay cast -->
+            <!-- /cast -->
 
         </div>
         <!-- /back -->
@@ -108,38 +115,97 @@ export default {
 @use "../style/partials/variable" as *;
 @use "../style/partials/mixin" as *;
 
-.card-container {
-    position: relative;
-    height: 100%;
+// COMMONS
+
+.card-container,
+.back-card,
+.front-card,
+.overlay,
+.front-card img
+{
     width: 100%;
+    height: 100%;
+}
+
+.card-container,
+.front-card{
+    position: relative;
+}
+
+.back-card,
+.rating,
+.overlay,
+.btn-cast{
+    position: absolute;
+}
+
+.back-card,
+.overlay{
+    top: 0;
+    left: 0;
+}
+
+.back-card,
+.cont-language,
+.rating{
+    display: flex;
+}
+
+.back-card,
+.overlay,
+.overlay ul{
+    padding: 10px;
+}
+
+.ovrlay,
+.overview-text{
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.rating,
+.btn-cast{
+    color: $black;
+}
+
+.overlay,
+.btn-cast:hover{
+    color: $white;
+}
+
+.back-card,
+.front-card:hover{
+    opacity: 0;
+}
+
+.front-card:hover,
+.back-card:hover{
+    transition: 1;
+}
+
+.card-container:hover .front-card,
+.back-card{
+    transform: rotateY(180deg);
+}
+// NO COMMONS
+.card-container {
 
     .back-card,
     .front-card {
         transform-style: preserve-3d;
         transition: 1s;
-        height: 100%;
-        width: 100%;
         border-radius: 20px;
     }
 
     .front-card {
-        position: relative;
         z-index: -1;
     }
 
     .back-card {
-        display: flex;
         flex-direction: column;
-        transform: rotateY(180deg);
         background-color: $lightgrey;
-        padding: 10px;
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
 
         .cont-language {
-            display: flex;
             justify-content: space-between;
             align-items: center;
         }
@@ -154,31 +220,18 @@ export default {
         }
 
         .rating {
-            color: $black;
-            display: flex;
-            position: absolute;
             bottom: 5px;
             right: 5px;
         }
 
         .overlay {
-            width: 100%;
-            height: 100%;
             background-color: rgba($color: #000000, $alpha: 0.9);
-            color: $white;
-            padding: 10px;
-            position: absolute;
             z-index: 9999;
-            top: 0;
-            left: 0;
             border-radius: 20px;
-            overflow-y: auto;
-            scrollbar-width: none;
             text-align: center;
 
             ul {
                 list-style: none;
-                padding: 10px;
                 line-height: 20px;
             }
         }
@@ -191,8 +244,6 @@ export default {
                 flex-grow: 1;
                 height: 150px;
                 display: inline-block;
-                overflow-y: auto;
-                scrollbar-width: none;
 
                 span {
                     font-size: 13px;
@@ -201,41 +252,29 @@ export default {
         }
 
         .btn-cast {
-            position: absolute;
             bottom: 100%;
             right: 5%;
             border: 2px solid $black;
-            color: $black;
             background-color: $white;
             padding: 5px;
             border-radius: 10px;
 
             &:hover {
                 background-color: $blue;
-                color: $white;
                 border: 2px solid $black;
             }
         }
     }
 
     .front-card img {
-        width: 100%;
-        height: 100%;
         border-radius: 20px;
-
     }
 
     &:hover {
-        .front-card {
-            transform: rotateY(180deg);
-            transition: 1s;
-            opacity: 0;
-        }
 
         .back-card {
             transform: rotateY(360deg);
             opacity: 1;
-            transition: 1s;
         }
     }
 }

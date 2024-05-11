@@ -5,9 +5,9 @@ export const store = reactive({
     listCastArray:[],
     randomWord:["italia","alien","marvel","amore","inter"],
     randomNumber: 0,
-    activePopup: 0,
-    popup: false,
-    searchQuery: "", // v.model
+    // activePopup: 0,
+    // popup: false,
+    searchQuery: "",
     apiKey: "05a99922144cdd99851de6215573f3f0",
     currentOption: "Default",
     selectOption:[
