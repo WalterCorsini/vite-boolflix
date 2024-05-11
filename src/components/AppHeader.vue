@@ -81,12 +81,15 @@ input,
         }
 
         .search-container {
+            width: 50%;
+            max-width: 300px;
             justify-content: center;
             padding: 10px;
             border: 2px solid $red;
             border-radius: 10px;
             height: 60%;
             select{
+                width: 50%;
                 margin-right: 3px;
             }
             .select{
@@ -97,6 +100,7 @@ input,
                 margin: 0 4px;
             }
             input {
+                width: 50%;
                 border: 1px solid black;
                 border-right: 0;
                 border-top-left-radius: 10px;
