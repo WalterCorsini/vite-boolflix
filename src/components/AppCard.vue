@@ -157,7 +157,7 @@ export default {
     padding: 10px;
 }
 
-.ovrlay,
+.overlay,
 .overview-text{
     overflow-y: auto;
     scrollbar-width: none;
@@ -168,7 +168,7 @@ export default {
     color: $black;
 }
 
-.overlay,
+.back-card .overlay,
 .btn-cast:hover{
     color: $white;
 }

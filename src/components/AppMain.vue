@@ -15,7 +15,9 @@ export default {
     methods: {
         searchCast(curElem, curInd) {
             let FioSe = "";
-            curElem.popup = !curElem.popup;
+            setTimeout(function(){
+                curElem.popup = !curElem.popup;
+            },2000);
             const paramsobj = {
                 api_key: this.store.apiKey,
             }
@@ -40,7 +42,7 @@ export default {
                     } else {
                         store.arraySerie[curInd].popup=false;
                     }
-                },3000);
+                },5000);
             });
         }
     }
