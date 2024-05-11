@@ -9,8 +9,8 @@ export default {
             maxValue: 5,
             store,
             isDecimal: false,
-            valutationLess:0,
-            valutationPlus:0,
+            valutationLess: 0,
+            valutationPlus: 0,
         }
     },
     props: {
@@ -37,19 +37,8 @@ export default {
         },
         valutation() {
             // TRASFORM AVERAGE BETWEEN 1 AND 5
-            Math.round(this.cardObj.vote_average)/2 % 1 ? this.isDecimal=true : this.isDecimal=false;
-            console.log(this.isDecimal, Math.round(this.cardObj.vote_average)/2);
-            if(this.isDecimal){
-                if(Math.round(this.cardObj.vote_average / 2) !== 0){
-                this.valutationLess =  Math.round(this.cardObj.vote_average / 2 - 1);
-                console.log(this.valutationLess, "less");
-                }
-                this.valutationPlus =  Math.round(this.cardObj.vote_average / 2 + 1);
-                console.log(this.valutationPlus, "plus");
-
-            }
-            // console.log(this.isDecimal, Math.round(this.cardObj.vote_average)/2);
-            return Math.round(this.cardObj.vote_average / 2);
+            Math.round(this.cardObj.vote_average) / 2 % 1 ? this.isDecimal = true : this.isDecimal = false;
+            return Math.floor(this.cardObj.vote_average / 2);
         },
     },
     methods: {
@@ -101,22 +90,21 @@ export default {
             <!-- star -->
             <div class="rating">
                 <span>Voto:</span>
-                 <span v-if="isDecimal" class="text-red" v-for="i in valutationLess">
+                <!-- full star if isDecimal or not -->
+                <span class="text-red" v-for="i in valutation">
                     <i class="fa-solid fa-star"></i>
                 </span>
-                
+                <!-- half star if isDecimal -->
                 <span class="text-red">
                     <i v-show="isDecimal" class="fa-solid fa-star-half-stroke"></i>
                 </span>
 
-                <span v-if="isDecimal" class="text-red" v-for="i in maxValue - valutation">
+                <!-- empy star if is Decimal  -->
+                <span v-if="isDecimal" class="text-red" v-for="i in maxValue - 1 - valutation">
                     <i class="fa-regular fa-star"></i>
                 </span>
 
-                <span v-if="!isDecimal" class="text-red" v-for="i in valutation">
-                    <i class="fa-solid fa-star"></i>
-                </span>
-
+                <!-- empy star if is Decimal  -->
                 <span v-if="!isDecimal" class="text-red" v-for="i in maxValue - valutation">
                     <i class="fa-regular fa-star"></i>
                 </span>
@@ -149,72 +137,72 @@ export default {
 .back-card,
 .front-card,
 .overlay,
-.front-card img
-{
+.front-card img {
     width: 100%;
     height: 100%;
 }
 
 .card-container,
-.front-card{
+.front-card {
     position: relative;
 }
 
 .back-card,
 .rating,
 .overlay,
-.btn-cast{
+.btn-cast {
     position: absolute;
 }
 
 .back-card,
-.overlay{
+.overlay {
     top: 0;
     left: 0;
 }
 
 .back-card,
 .cont-language,
-.rating{
+.rating {
     display: flex;
 }
 
 .back-card,
 .overlay,
-.overlay ul{
+.overlay ul {
     padding: 10px;
 }
 
 .overlay,
-.overview-text{
+.overview-text {
     overflow-y: auto;
     scrollbar-width: none;
 }
 
 .rating,
-.btn-cast{
+.btn-cast {
     color: $black;
 }
 
 .back-card .overlay,
-.btn-cast:hover{
+.btn-cast:hover {
     color: $white;
 }
 
 .back-card,
-.front-card:hover{
+.front-card:hover {
     opacity: 0;
 }
 
 .front-card:hover,
-.back-card:hover{
+.back-card:hover {
     transition: 1;
 }
 
 .card-container:hover .front-card,
-.back-card{
+.back-card {
     transform: rotateY(180deg);
 }
+
 // NO COMMONS
 .card-container {
 
