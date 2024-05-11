@@ -16,7 +16,6 @@ export default {
     },
     created() {
         this.store.randomNumber = Math.floor(Math.random() * this.store.randomWord.length);
-        console.log(this.store.randomNumber);
         this.store.currentOption = "default";
         this.searchType();
     },

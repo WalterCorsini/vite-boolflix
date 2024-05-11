@@ -9,6 +9,8 @@ export default {
             maxValue: 5,
             store,
             isDecimal: false,
+            valutationLess:0,
+            valutationPlus:0,
         }
     },
     props: {
@@ -35,8 +37,18 @@ export default {
         },
         valutation() {
             // TRASFORM AVERAGE BETWEEN 1 AND 5
-            Math.round(this.cardObj.vote_average)/2 % 2 ? this.isDecimal=false : this.isDecimal=true;
-            console.log(this.isDecimal);
+            Math.round(this.cardObj.vote_average)/2 % 1 ? this.isDecimal=true : this.isDecimal=false;
+            console.log(this.isDecimal, Math.round(this.cardObj.vote_average)/2);
+            if(this.isDecimal){
+                if(Math.round(this.cardObj.vote_average / 2) !== 0){
+                this.valutationLess =  Math.round(this.cardObj.vote_average / 2 - 1);
+                console.log(this.valutationLess, "less");
+                }
+                this.valutationPlus =  Math.round(this.cardObj.vote_average / 2 + 1);
+                console.log(this.valutationPlus, "plus");
+
+            }
+            // console.log(this.isDecimal, Math.round(this.cardObj.vote_average)/2);
             return Math.round(this.cardObj.vote_average / 2);
         },
     },
@@ -89,13 +101,23 @@ export default {
             <!-- star -->
             <div class="rating">
                 <span>Voto:</span>
-                <span class="text-red" v-for="i in valutation">
+                 <span v-if="isDecimal" class="text-red" v-for="i in valutationLess">
                     <i class="fa-solid fa-star"></i>
                 </span>
-                <span class="text-red" v-if="isDecimal ? 'valutation++' : ''">
-                    <i class="fa-solid fa-star-half-stroke"></i>
+                
+                <span class="text-red">
+                    <i v-show="isDecimal" class="fa-solid fa-star-half-stroke"></i>
                 </span>
-                <span class="text-red" v-for="i in maxValue - valutation">
+
+                <span v-if="isDecimal" class="text-red" v-for="i in maxValue - valutation">
+                    <i class="fa-regular fa-star"></i>
+                </span>
+
+                <span v-if="!isDecimal" class="text-red" v-for="i in valutation">
+                    <i class="fa-solid fa-star"></i>
+                </span>
+
+                <span v-if="!isDecimal" class="text-red" v-for="i in maxValue - valutation">
                     <i class="fa-regular fa-star"></i>
                 </span>
             </div>
