@@ -91,21 +91,21 @@ export default {
             <div class="rating">
                 <span>Voto:</span>
                 <!-- full star if isDecimal or not -->
-                <span class="text-red" v-for="i in valutation">
+                <span class="text-gold" v-for="i in valutation">
                     <i class="fa-solid fa-star"></i>
                 </span>
                 <!-- half star if isDecimal -->
-                <span class="text-red">
+                <span class="text-gold">
                     <i v-show="isDecimal" class="fa-solid fa-star-half-stroke"></i>
                 </span>
 
                 <!-- empy star if is Decimal  -->
-                <span v-if="isDecimal" class="text-red" v-for="i in maxValue - 1 - valutation">
+                <span v-if="isDecimal" v-for="i in maxValue - 1 - valutation">
                     <i class="fa-regular fa-star"></i>
                 </span>
 
                 <!-- empy star if is Decimal  -->
-                <span v-if="!isDecimal" class="text-red" v-for="i in maxValue - valutation">
+                <span v-if="!isDecimal" v-for="i in maxValue - valutation">
                     <i class="fa-regular fa-star"></i>
                 </span>
             </div>
