@@ -10,6 +10,8 @@ export default {
     data() {
         return {
             store,
+            filmShow: true,
+            serieShow: true,
         }
     },
     computed:{
@@ -76,10 +78,15 @@ export default {
         <!-- FILM -->
         <div v-if="arrayFilmLength > 0">
             <div class="header-container">
-                <span>Film</span>
+                <span>
+                    Film
+                    <i @click="filmShow=!filmShow"
+                    :class="{'fa-solid fa-circle-chevron-down': !filmShow, 'fa-solid fa-circle-chevron-up': filmShow}">
+                    </i>
+                </span>
                 <span>Trovati {{ arrayFilmLength }} Elementi</span>
             </div>
-            <div class="container" v-show="this.store.arrayFilm.length !== 0">
+            <div class="container" v-show="this.store.arrayFilm.length !== 0 && filmShow">
                 <div v-show="curFilm.poster_path" class="card" v-for="curFilm, index in store.arrayFilm">
                     <AppCard @cast="searchCast" :cardObj="curFilm" :ind="index" />
                 </div>
@@ -90,10 +97,14 @@ export default {
         <!-- SERIE -->
         <div v-if="arraySerieLength > 0">
             <div class="header-container">
-                <span>Serie</span>
+                <span>Serie
+                    <i @click="serieShow=!serieShow" 
+                    :class="{'fa-solid fa-circle-chevron-down': !serieShow, 'fa-solid fa-circle-chevron-up': serieShow}">
+                </i>
+            </span>
                 <span>Trovati {{ arraySerieLength }} Elementi</span>
             </div>
-            <div class="container" v-show="this.store.arraySerie.length !== 0">
+            <div class="container" v-show="this.store.arraySerie.length !== 0 && serieShow">
                 <div v-show="curSerie.poster_path" class="card" v-for="curSerie, index in store.arraySerie">
                     <AppCard @cast="searchCast" :cardObj="curSerie" :ind="index" />
                 </div>
@@ -127,6 +138,10 @@ export default {
         margin: 30px;
         justify-content: space-between;
         align-items: center;
+        
+        i{
+            font-size: 20px;
+        }
 
         span:last-child {
             font-size: 23px;
