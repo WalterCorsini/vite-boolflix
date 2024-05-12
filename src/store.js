@@ -9,6 +9,7 @@ export const store = reactive({
     // popup: false,
     searchQuery: "",
     apiKey: "05a99922144cdd99851de6215573f3f0",
+    currentRadio: "All",
     currentOption: "Default",
     selectOption:[
         {option:"Default", value: "default"},

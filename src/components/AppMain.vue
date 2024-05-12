@@ -12,6 +12,27 @@ export default {
             store,
         }
     },
+    computed:{
+        arraySerieLength(){
+            let count=0;
+            for(let i=0; i<store.arraySerie.length; i++){
+                if(store.arraySerie[i].poster_path){
+                    count++;
+                }
+            }
+            return count;
+        },
+        arrayFilmLength(){
+            let count=0;
+            for(let i=0; i<store.arrayFilm.length; i++){
+                if(store.arrayFilm[i].poster_path){
+                    count++;
+                }
+            }
+            return count;
+        }
+    },
+
     methods: {
         searchCast(curElem, curInd) {
             store.listCastArray = "";
@@ -53,10 +74,10 @@ export default {
     <div class="container-film-serie">
 
         <!-- FILM -->
-        <div v-if="store.arrayFilm.length > 0">
+        <div v-if="arrayFilmLength > 0">
             <div class="header-container">
                 <span>Film</span>
-                <span>Trovati {{ store.arrayFilm.length }} Elementi</span>
+                <span>Trovati {{ arrayFilmLength }} Elementi</span>
             </div>
             <div class="container" v-show="this.store.arrayFilm.length !== 0">
                 <div v-show="curFilm.poster_path" class="card" v-for="curFilm, index in store.arrayFilm">
@@ -67,10 +88,10 @@ export default {
         <!-- /FILM -->
 
         <!-- SERIE -->
-        <div v-if="store.arraySerie.length > 0">
+        <div v-if="arraySerieLength > 0">
             <div class="header-container">
                 <span>Serie</span>
-                <span>Trovati {{ store.arrayFilm.length }} Elementi</span>
+                <span>Trovati {{ arraySerieLength }} Elementi</span>
             </div>
             <div class="container" v-show="this.store.arrayFilm.length !== 0">
                 <div v-show="curSerie.poster_path" class="card" v-for="curSerie, index in store.arraySerie">

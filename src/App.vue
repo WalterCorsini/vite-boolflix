@@ -15,44 +15,56 @@ export default {
         }
     },
     created() {
-        this.store.randomNumber = Math.floor(Math.random() * this.store.randomWord.length);
-        this.store.currentOption = "default";
+        store.randomNumber = Math.floor(Math.random() * store.randomWord.length);
+        store.currentOption = "default";
         this.searchType();
     },
 
     methods: {
         SearchFilmSeries() {  // SEARCH FILM WITH INPUT TEXT
 
+
+
             // CREATE PARAMS
             const paramsobj = {
-                api_key: this.store.apiKey,
-                query: this.store.searchQuery,
+                api_key: store.apiKey,
+                query: store.searchQuery,
             }
-            //  CREATE CALL
-            const CallMovie = axios.get("https://api.themoviedb.org/3/search/movie", {
-                params: paramsobj
-            });
-            const CallSerie = axios.get("https://api.themoviedb.org/3/search/tv", {
-                params: paramsobj
-            });
-            //  TWO CALL IN ONE
-            axios
-                .all([CallMovie, CallSerie])
-                .then((resp) => {
+            if (store.currentRadio == "All" || store.currentRadio === "Serie") {
+                axios.get("https://api.themoviedb.org/3/search/tv", {
+                    params: paramsobj
+                }).then((resp) => {
                     // SAVE INTO ARRAY IN THE GLOBAL STORE
-                    this.store.arrayFilm = resp[0].data.results;
-                    this.store.arraySerie = resp[1].data.results;
+                    store.arraySerie = resp.data.results;
+                    console.log(store.arraySerie.length);
+                    if(store.currentRadio === "Serie"){
+                        store.arrayFilm = [];
+                    }
                 })
+            }
+            if (store.currentRadio == "All" || store.currentRadio === "Film") {
+                axios.get("https://api.themoviedb.org/3/search/movie", {
+                    params: paramsobj
+                }).then((resp) => {
+                    // SAVE INTO ARRAY IN THE GLOBAL STORE
+                    store.arrayFilm = resp.data.results;
+                    if(store.currentRadio === "Film"){
+                        store.arraySerie = [];
+                        console.log("ok");
+                    }
+                })
+            }
             // CLEAR INPUT TEXT
-            this.store.searchQuery = "";
+            store.searchQuery = "";
         },
-        searchType() {  // SEARCH FILM WUTH SELECT OPTION AND START WITH RANDON SEARCH WHEN THE OPTION IS DEFAULT
+
+        searchType() {  // SEARCH FILM WITH SELECT OPTION AND START WITH RANDON SEARCH WHEN THE OPTION IS DEFAULT
             // CREATE PARAMS
-            const paramsobj = { api_key: this.store.apiKey }
+            const paramsobj = { api_key: store.apiKey }
             // CONTROL IF OPTION IS DEAFAULT
-            if (this.store.currentOption === "default") {
+            if (store.currentOption === "default") {
                 // SAVE IN TO QUERY PARAMS RANDOM WORD
-                paramsobj.query = this.store.randomWord[this.store.randomNumber];
+                paramsobj.query = store.randomWord[store.randomNumber];
                 //  CREATE CALL
                 const CallMovie = axios.get("https://api.themoviedb.org/3/search/movie", {
                     params: paramsobj
@@ -65,13 +77,13 @@ export default {
                     .all([CallMovie, CallSerie])
                     .then((resp) => {
                         //  SAVE INTO ARRAY IN THE GLOBAL STORE
-                        this.store.arrayFilm = resp[0].data.results;
-                        this.store.arraySerie = resp[1].data.results;
+                        store.arrayFilm = resp[0].data.results;
+                        store.arraySerie = resp[1].data.results;
                     })
-            //  IF SELECT OPTION IS POPULAR OR TOP_RATED CALL FOR SERIES AND FILM ESLE ONLY FILM
-            } else if (this.store.currentOption === "popular" || this.store.currentOption === "top_rated") {
+                //  IF SELECT OPTION IS POPULAR OR TOP_RATED CALL FOR SERIES AND FILM ESLE ONLY FILM
+            } else if (store.currentOption === "popular" || store.currentOption === "top_rated") {
                 //   chiamata doppia per serie e per film
-                const CallMovie = axios.get(`https://api.themoviedb.org/3/movie/${this.store.currentOption}`, {
+                const CallMovie = axios.get(`https://api.themoviedb.org/3/movie/${store.currentOption}`, {
                     params: paramsobj
                 });
                 const CallSerie = axios.get(`https://api.themoviedb.org/3/tv/${this.store.currentOption}`, {
@@ -94,7 +106,9 @@ export default {
                         this.store.arrayFilm = resp.data.results;
                     });
             }
-        }
+        },
+
+
     }
 }
 </script>

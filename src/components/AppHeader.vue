@@ -15,12 +15,19 @@ export default {
             <span>BOOLFLIX</span>
 
             <div class="search-container">
-                <label for="search">trova un film </label>
+                    <form class="radio-container" action="">
+                        <label for="search-of-type">All</label>
+                        <input v-model="store.currentRadio" type="radio" name="search-of-type" value="All" checked>
+                        <label for="search-of-type">Film</label>
+                        <input v-model="store.currentRadio" type="radio" name="search-of-type" value="Film">
+                        <label for="search-of-type">Serie</label>
+                        <input v-model="store.currentRadio" type="radio" name="search-of-type" value="Serie">
+                    </form>
                 <div class="select">
                     <select @change="$emit('changeOption')" v-model="store.currentOption" name="selectType">
                         <option id="selectType" :value="curOption.value" v-for="curOption in store.selectOption">{{ curOption.option }}</option>
                     </select>
-                    <input v-model="store.searchQuery" id="search" type="text" placeholder="ricerca..">
+                    <input v-model="store.searchQuery" id="search" aria-labal="TrovaFilm" type="text" placeholder="ricerca..">
                     <button :disabled='store.searchQuery === ""' @click="$emit('searchFilm')">cerca</button>
                 </div>
             </div>
@@ -88,6 +95,10 @@ input,
             border: 2px solid $red;
             border-radius: 10px;
             height: 60%;
+            .radio-container{
+                display: flex;
+            }
+
             select{
                 width: 50%;
                 margin-right: 3px;
