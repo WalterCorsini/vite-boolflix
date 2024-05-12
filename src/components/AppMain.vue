@@ -93,7 +93,7 @@ export default {
                 <span>Serie</span>
                 <span>Trovati {{ arraySerieLength }} Elementi</span>
             </div>
-            <div class="container" v-show="this.store.arrayFilm.length !== 0">
+            <div class="container" v-show="this.store.arraySerie.length !== 0">
                 <div v-show="curSerie.poster_path" class="card" v-for="curSerie, index in store.arraySerie">
                     <AppCard @cast="searchCast" :cardObj="curSerie" :ind="index" />
                 </div>
