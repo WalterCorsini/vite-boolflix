@@ -72,7 +72,9 @@ export default {
 
             <!--  flag -->
             <div class="cont-language">
+                <!-- v-if="flag.includes(cardObj.original_language )" -->
                 <img :src="getImage(cardObj.original_language)">
+                <!-- <span v-if="!flag.includes(cardObj.original_language)">{{ cardObj.original_language }}</span> -->
                 <button class="btn-cast" @click="$emit('cast', cardObj, ind)">vedi cast</button>
             </div>
             <!--  /flag -->
@@ -89,24 +91,12 @@ export default {
 
             <!-- star -->
             <div class="rating">
-                <span>Voto:</span>
-                <!-- full star if isDecimal or not -->
-                <span class="text-gold" v-for="i in valutation">
-                    <i class="fa-solid fa-star"></i>
+                <span v-if="isDecimal" v-for="i in 4">
+                    <i :class="i===valutation ? 'fa-solid fa-star-half-stroke' : ''"></i>
+                    <i class="fa-star" :class="i<valutation ? 'fa-solid' : 'fa-regular'"></i>
                 </span>
-                <!-- half star if isDecimal -->
-                <span class="text-gold">
-                    <i v-show="isDecimal" class="fa-solid fa-star-half-stroke"></i>
-                </span>
-
-                <!-- empy star if is Decimal  -->
-                <span v-if="isDecimal" v-for="i in maxValue - 1 - valutation">
-                    <i class="fa-regular fa-star"></i>
-                </span>
-
-                <!-- empy star if is Decimal  -->
-                <span v-if="!isDecimal" v-for="i in maxValue - valutation">
-                    <i class="fa-regular fa-star"></i>
+                <span v-if="!isDecimal" v-for="i in 5">
+                    <i class="fa-star" :class="i<valutation ? 'fa-solid' : 'fa-regular'"></i>
                 </span>
             </div>
             <!-- /star -->
