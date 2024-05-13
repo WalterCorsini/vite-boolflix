@@ -91,11 +91,11 @@ export default {
 
             <!-- star -->
             <div class="rating">
-                <span v-if="isDecimal" v-for="i in 4">
-                    <i :class="i===valutation ? 'fa-solid fa-star-half-stroke' : ''"></i>
-                    <i class="fa-star" :class="i<valutation ? 'fa-solid' : 'fa-regular'"></i>
+                <span v-if="isDecimal" v-for="i in maxValue-1">
+                    <i class="text-gold" :class="i===valutation ? 'fa-solid fa-star-half-stroke' : ''"></i>
+                    <i class="fa-star" :class="i<valutation ? 'fa-solid text-gold' : 'fa-regular'"></i>
                 </span>
-                <span v-if="!isDecimal" v-for="i in 5">
+                <span v-if="!isDecimal" v-for="i in maxValue">
                     <i class="fa-star" :class="i<valutation ? 'fa-solid' : 'fa-regular'"></i>
                 </span>
             </div>
